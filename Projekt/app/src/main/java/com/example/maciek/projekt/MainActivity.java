@@ -32,6 +32,21 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this, R.layout.row, carL);
         list.setAdapter(adapter);
 
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        //generate list
+        //ArrayList<String> list = new ArrayList<String>();
+        //list.add("item1");
+        //list.add("item2");
+
+        //instantiate custom adapter
+        //MyAdapter adapter = new MyAdapter(, this);
+
+        //handle listview and assign adapter
+        ListView lView = (ListView)findViewById(R.id.list_view);
+        lView.setAdapter(adapter);
+
         Button add = findViewById(R.id.add);
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -47,4 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 }
