@@ -13,16 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MyAdapter extends BaseAdapter implements ListAdapter {
+public class MyAdapter<T> extends BaseAdapter implements ListAdapter {
 
     ArrayList todo;
     Context context;
 
-    public MyAdapter(Context context, ArrayList todo) {
+    public MyAdapter(Context context, ArrayList<T> todo) {
         this.todo = todo;
         this.context = context;
     }
-
 
     @Override
     public int getCount() {
@@ -37,7 +36,12 @@ public class MyAdapter extends BaseAdapter implements ListAdapter {
     //tutaj nie wiem co trzeba zwracać
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
+    }
+
+    public void add(T obj) {
+        todo.add(obj);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -46,24 +50,23 @@ public class MyAdapter extends BaseAdapter implements ListAdapter {
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.custom_list, null);
-
-
-            TextView listItemText = (TextView) view.findViewById(R.id.list_item_string);
-            listItemText.setText((Integer) todo.get(position));
-
-
-            Button deleteBtn = (Button) view.findViewById(R.id.delete_btn);
-
-            deleteBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //do something
-                    todo.remove(position);
-                    notifyDataSetChanged();
-                }
-            });
-            return view;
         }
+
+        TextView listItemText = view.findViewById(R.id.list_item_string);
+        listItemText.setText(((T) getItem(position)).toString());
+
+
+        Button deleteBtn = view.findViewById(R.id.delete_btn);
+
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //do something
+                todo.remove(position);
+                notifyDataSetChanged();
+            }
+        });
+
         return view;
     }
 }
