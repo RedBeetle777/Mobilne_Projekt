@@ -1,9 +1,8 @@
 package com.example.maciek.projekt;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -15,15 +14,15 @@ import static com.example.maciek.projekt.Shop.ShopType.KINO;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView list ;
-    private MyAdapter adapter ;
+    private static String TAG = "MainActivity";
 
+    private ListView list ;
+    private MyAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        list = (ListView) findViewById(R.id.list_view);
         final EditText et = findViewById(R.id.base);
 
         //enum shop{CINEMA_CITY};
@@ -47,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
         //handle listview and assign adapter
         ListView lView = (ListView)findViewById(R.id.list_view);
+        adapter = new MyAdapter(this, shopList);
+//
         lView.setAdapter(adapter);
 
         Button add = findViewById(R.id.add);
@@ -56,15 +57,10 @@ public class MainActivity extends AppCompatActivity {
                 String text = et.getText().toString();
                 Shop shop = new Shop(text, KINO,90, 90);
                 adapter.add(shop);
-
             }
         };
 
         add.setOnClickListener(listener);
-
-
-
     }
-
 
 }

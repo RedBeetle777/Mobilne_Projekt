@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MyAdapter extends BaseAdapter implements ListAdapter {
+public class MyAdapter<T> extends BaseAdapter implements ListAdapter {
 
     ArrayList<Shop> shopList;
     Context context;
@@ -28,7 +28,6 @@ public class MyAdapter extends BaseAdapter implements ListAdapter {
         shopList.add(shop);
         notifyDataSetChanged();
     }
-
 
     @Override
     public int getCount() {
