@@ -1,11 +1,18 @@
 package com.example.maciek.projekt;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.example.maciek.projekt.locationaccess.GPSTracker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,7 +54,25 @@ public class MainActivity extends AppCompatActivity {
         //handle listview and assign adapter
         ListView lView = (ListView)findViewById(R.id.list_view);
         adapter = new MyAdapter(this, shopList);
-//
+
+        String[] elementy = {}; // enum zamienić na tablicę Stringów
+        final Spinner spinner = (Spinner)findViewById(R.id.spinner);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_spinner_dropdown_item, elementy);
+
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         lView.setAdapter(adapter);
 
         Button add = findViewById(R.id.add);
@@ -55,10 +80,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String text = et.getText().toString();
-                Shop shop = new Shop(text, KINO,90, 90);
-                adapter.add(shop);
+                String type = spinner.getSelectedItem().toString();
+                GPSTracker tracker = new GPSTracker(getApplicationContext());
+                if(tracker.canGetLocation()) {
+                    Location location = tracker.getLocation();
+
+                    Shop shop = new Shop(text, Shop.ShopType.valueOf(type), location.getLatitude(), location.getLongitude());
+
+                    adapter.add(shop);
+                } else{
+                    Toast.makeText(getApplicationContext(), "Couldn't get location", Toast.LENGTH_SHORT).show();
+                }
+                tracker.stopUsingGPS();
             }
         };
+
 
         add.setOnClickListener(listener);
     }
