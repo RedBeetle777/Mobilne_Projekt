@@ -11,10 +11,12 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.example.maciek.projekt.Shop.ShopType.KINO;
+
 public class MainActivity extends AppCompatActivity {
 
     private ListView list ;
-    private ArrayAdapter<String> adapter ;
+    private MyAdapter adapter ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,16 +26,16 @@ public class MainActivity extends AppCompatActivity {
         list = (ListView) findViewById(R.id.list_view);
         final EditText et = findViewById(R.id.base);
 
-        String cars[] = {"Mercedes", "Fiat", "Ferrari", "Aston Martin", "Lamborghini", "Skoda", "Volkswagen", "Audi", "Citroen"};
+        //enum shop{CINEMA_CITY};
 
-        ArrayList<String> carL = new ArrayList<String>();
-        carL.addAll( Arrays.asList(cars) );
+        Shop shop = new Shop("CinemaCity", KINO, 90, 90);
+        //String[] carL = {"Cinema City", "KFC", "Pasibus", "Cybermachina", "Wroclavia"};
 
-        adapter = new ArrayAdapter<String>(this, R.layout.row, carL);
-        list.setAdapter(adapter);
+        ArrayList<Shop> shopList = new ArrayList<Shop>();
+        shopList.add(shop);
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        adapter = new MyAdapter (this, shopList);
+
 
         //generate list
         //ArrayList<String> list = new ArrayList<String>();
@@ -52,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String text = et.getText().toString();
-                adapter.add(text);
+                Shop shop = new Shop(text, KINO,90, 90);
+                adapter.add(shop);
 
             }
         };

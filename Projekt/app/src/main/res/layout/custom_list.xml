@@ -23,7 +23,6 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:text="Usuń"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
