@@ -18,6 +18,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.example.maciek.projekt.Shop.ShopType.KINO;
+import static com.example.maciek.projekt.Shop.ShopType.KAWIARNIA;
+import static com.example.maciek.projekt.Shop.ShopType.BAR;
+import static com.example.maciek.projekt.Shop.ShopType.FASTFOOD;
+import static com.example.maciek.projekt.Shop.ShopType.DWORZEC;
+import static com.example.maciek.projekt.Shop.ShopType.CENTRUM_HANDLOWE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         //enum shop{CINEMA_CITY};
 
-        Shop shop = new Shop("CinemaCity", KINO, 90, 90);
+        Shop shop = new Shop(1,"CinemaCity", KINO, 90, 90);
         //String[] carL = {"Cinema City", "KFC", "Pasibus", "Cybermachina", "Wroclavia"};
 
         ArrayList<Shop> shopList = new ArrayList<Shop>();
@@ -64,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
             }
 
             @Override
@@ -79,13 +83,14 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                long id = 100;
                 String text = et.getText().toString();
                 String type = spinner.getSelectedItem().toString();
                 GPSTracker tracker = new GPSTracker(getApplicationContext());
                 if(tracker.canGetLocation()) {
                     Location location = tracker.getLocation();
 
-                    Shop shop = new Shop(text, Shop.ShopType.valueOf(type), location.getLatitude(), location.getLongitude());
+                    Shop shop = new Shop(id,text, Shop.ShopType.valueOf(type), location.getLatitude(), location.getLongitude());
 
                     adapter.add(shop);
                 } else{
