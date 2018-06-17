@@ -118,9 +118,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Counter, zeby nadawac nowe id sklepom
 
-
-    long shopIdCounter = 2;
-
+    for(int i = 2; i > 0; i++)
+        long shopIdCounter = i;
+    }
 
     // Dodanie nowego sklepu
         if (gps.canGetLocation()) {

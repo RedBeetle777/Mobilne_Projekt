@@ -7,7 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.Room;
 
 import com.example.maciek.projekt.Shop;
 
