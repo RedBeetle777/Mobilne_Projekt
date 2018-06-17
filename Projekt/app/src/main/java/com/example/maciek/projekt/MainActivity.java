@@ -1,6 +1,7 @@
 package com.example.maciek.projekt;
 
-//import android.arch.persistence.room.Room;
+import android.arch.persistence.room.Room;
+import android.arch.persistence.room.RoomDatabase;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -110,15 +111,16 @@ public class MainActivity extends AppCompatActivity {
     }
     //AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "locations").allowMainThreadQueries().build();
 
-    ShopDbAdapter db = Room.ShopDbAdapter(getApplicationContext());
-        db.open();
+    //ShopDbAdapter db = Room.ShopDbAdapter(getApplicationContext());
+    ShopDbAdapter db = Room.databaseBuilder(getApplicationContext(), ShopDbAdapter.class, "locations").allowMainThreadQueries().build();
+        //db.open();
     GPSTracker gps = new GPSTracker(getApplicationContext());
 
     // Counter, zeby nadawac nowe id sklepom
 
-    for(int i = 2; i > 0; i++){
-        long shopIdCounter = i;
-    }
+
+    long shopIdCounter = 2;
+
 
     // Dodanie nowego sklepu
         if (gps.canGetLocation()) {
