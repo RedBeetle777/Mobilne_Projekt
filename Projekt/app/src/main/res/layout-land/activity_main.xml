@@ -19,42 +19,35 @@
         android:id="@+id/spinner"
         android:layout_width="251dp"
         android:layout_height="26dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        android:layout_marginStart="168dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/base" />
 
     <EditText
         android:id="@+id/base"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="554dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
         android:autoText="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.153"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/list_view" />
 
     <Button
         android:id="@+id/add"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="88dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="116dp"
+        android:layout_marginStart="252dp"
         android:text="Zapisz"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     <ListView
         android:id="@+id/list_view"
         android:layout_width="0dp"
-        android:layout_height="334dp"
+        android:layout_height="115dp"
         android:text="View"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

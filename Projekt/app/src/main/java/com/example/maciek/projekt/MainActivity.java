@@ -1,5 +1,6 @@
 package com.example.maciek.projekt;
 
+//import android.arch.persistence.room.Room;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+
+import com.example.maciek.projekt.dbaccess.ShopDbAdapter;
 import com.example.maciek.projekt.locationaccess.GPSTracker;
 
 import java.util.ArrayList;
@@ -39,11 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
         //enum shop{CINEMA_CITY};
 
-        Shop shop = new Shop(1,"CinemaCity", KINO, 90, 90);
+        Shop shop1 = new Shop(1,"CinemaCity", KINO, 90, 90);
+        Shop shop2 = new Shop(2, "Pasibus", FASTFOOD, 90, 90);
         //String[] carL = {"Cinema City", "KFC", "Pasibus", "Cybermachina", "Wroclavia"};
 
         ArrayList<Shop> shopList = new ArrayList<Shop>();
-        shopList.add(shop);
+        shopList.add(shop1);
+        shopList.add(shop2);
 
         adapter = new MyAdapter (this, shopList);
 
@@ -103,5 +108,29 @@ public class MainActivity extends AppCompatActivity {
 
         add.setOnClickListener(listener);
     }
+    //AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "locations").allowMainThreadQueries().build();
+
+    ShopDbAdapter db = Room.ShopDbAdapter(getApplicationContext());
+        db.open();
+    GPSTracker gps = new GPSTracker(getApplicationContext());
+
+    // Counter, zeby nadawac nowe id sklepom
+
+    for(int i = 2; i > 0; i++){
+        long shopIdCounter = i;
+    }
+
+    // Dodanie nowego sklepu
+        if (gps.canGetLocation()) {
+        Location loc = gps.getLocation();
+        db.insertShop(new Shop(shopIdCounter++, "McDonalds", Shop.ShopType.FASTFOOD, loc.getLatitude(), loc.getLongitude()));
+    } else {
+        gps.stopUsingGPS();
+        throw new RuntimeException("Couldn't get GPS location");
+    }
+
+    // Zamkniecie zasobow
+        gps.stopUsingGPS();
+        db.close();
 
 }
